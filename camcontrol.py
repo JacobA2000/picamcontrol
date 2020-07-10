@@ -1,3 +1,6 @@
+#RETIRED SCRIPT JUST USING AS POINT OF REFERENCE!!!!1
+
+
 #from picamera import PiCamera
 import validationfunctions
 #camera = PiCamera()

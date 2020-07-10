@@ -12,7 +12,7 @@ def startTimelapse(duration, timeBetweenShots):
         sleep(int(timeBetweenShots))
         timeNow = datetime.now()
         takenAt = timeNow.strftime("%d/%m/%Y %H:%M:%S")
-        print("Photo %s taken at %s" % (i, takenAt))
+        print("[TIMELAPSE] Photo %s taken at %s" % (i, takenAt))
         #camera.capture('/home/pi/image%s.jpg' % i)
 
     #camera.stop_preview()
