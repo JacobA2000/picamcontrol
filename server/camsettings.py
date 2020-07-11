@@ -2,6 +2,7 @@ from picamera import PiCamera
 from os import path, mkdir
 
 camera = PiCamera()
+
 save_path = "/home/pi/Camera/camoutput/"
 
 defaultSettings = ["save_path=/home/pi/Camera/camoutput/","resolution=1280,720", "rotation=0", 
@@ -10,6 +11,7 @@ defaultSettings = ["save_path=/home/pi/Camera/camoutput/","resolution=1280,720",
 
 def ApplySettings(settingsToApply):
     
+    global save_path 
     save_path = settingsToApply[0]
 
     resWidth = int(settingsToApply[1].split(',')[0])
@@ -32,9 +34,7 @@ def ApplySettings(settingsToApply):
         camera.led = False
 
 def InitCamera():
-    if path.exists(save_path) == False:
-        print("[CAMERA] Creating output folder at " + save_path + "...")
-        mkdir(save_path)
+    
 
     if path.exists("camsettings.txt") == False:
         configFile = open("camsettings.txt", "w+")
@@ -55,6 +55,10 @@ def InitCamera():
             valuesToChange.append(settingValue)
 
         ApplySettings(valuesToChange)
+
+    if path.exists(save_path) == False:
+        print("[CAMERA] Creating output folder at " + save_path + "...")
+        mkdir(save_path)
 
 
 
