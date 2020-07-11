@@ -7,7 +7,8 @@ import camsettings
 camera = camsettings.camera
 
 def startTimelapse(duration, timeBetweenShots):
-    timelaspeStartTime = datetime.now()
+    now = datetime.now()
+    timelaspeStartTime = str(now.strftime("%d-%m-%Y %H:%M:%S"))
     savepath = camsettings.save_path + timelaspeStartTime + '/'
     numberOfShots = floor(int(duration)/int(timeBetweenShots))
     
