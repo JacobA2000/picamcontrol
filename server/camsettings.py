@@ -1,19 +1,30 @@
 from picamera import PiCamera
-from os import path
+from os import path, mkdir
 
 camera = PiCamera()
+save_path = "/home/pi/Camera/camoutput/"
 
-defaultSettings = ["resolution=1280,720", "rotation=0", 
+defaultSettings = ["save_path=/home/pi/Camera/camoutput/","resolution=1280,720", "rotation=0", 
                     "brightness=50", "contrast=0", "saturation=0",
                     "sharpness=0", "led=True"]
 
 def ApplySettings(settingsToApply):
-    camera.resolution = (settingsToApply[0].split(',')[0], settingsToApply[0].split(',')[1])
-    camera.rotation = int(settingsToApply[1])
-    camera.brightness = int(settingsToApply[2])
-    camera.contrast = int(settingsToApply[3])
-    camera.saturation = int(settingsToApply[4])
-    camera.sharpness = int(settingsToApply[5])
+    
+    save_path = settingsToApply[0]
+
+    resWidth = int(settingsToApply[1].split(',')[0])
+    resHeight = int(settingsToApply[1].split(',')[1])
+    camera.resolution = (resWidth, resHeight)
+
+    camera.rotation = int(settingsToApply[2])
+    
+    camera.brightness = int(settingsToApply[3])
+    
+    camera.contrast = int(settingsToApply[4])
+    
+    camera.saturation = int(settingsToApply[5])
+    
+    camera.sharpness = int(settingsToApply[6])
 
     if settingsToApply[6] == "True":
         camera.led = True
@@ -21,15 +32,19 @@ def ApplySettings(settingsToApply):
         camera.led = False
 
 def InitCamera():
+    if path.exists(save_path) == False:
+        print("[CAMERA] Creating output folder at " + save_path + "...")
+        mkdir(save_path)
+
     if path.exists("camsettings.txt") == False:
         configFile = open("camsettings.txt", "w+")
-        for i in range(7):
+        for i in range(8):
             configFile.write(defaultSettings[i] + '\n')
         configFile.close()
-        print("[GENERAL] Camera settings file created with default values.")
+        print("[CAMERA] Camera settings file created with default values.")
     
     else:
-        print("[GENERAL] Camera settings file already exists, importing settings...")
+        print("[CAMERA] Camera settings file already exists, importing settings...")
         configFile = open("camsettings.txt", "r")
         configFileLines = configFile.readlines()
 
@@ -41,9 +56,6 @@ def InitCamera():
 
         ApplySettings(valuesToChange)
 
-
-
-InitCamera()
 
 
 

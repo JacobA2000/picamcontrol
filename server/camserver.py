@@ -1,5 +1,6 @@
 import socket 
 import threading
+import camsettings
 from timelapsecam import startTimelapse
 
 HEADER = 64
@@ -51,5 +52,7 @@ def start():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
 
+print("[CAMERA] Initialising camera...")
+camsettings.InitCamera()
 print("[STARTING] Server is starting...")
 start()
