@@ -26,9 +26,9 @@ def ApplySettings(settingsToApply):
     
     camera.sharpness = int(settingsToApply[6])
 
-    if settingsToApply[6] == "True":
+    if settingsToApply[7] == "True":
         camera.led = True
-    elif settingsToApply[6] == "False":
+    elif settingsToApply[7] == "False":
         camera.led = False
 
 def InitCamera():
