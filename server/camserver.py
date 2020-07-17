@@ -37,8 +37,9 @@ def handle_client(conn, addr):
                     timeBetweenShots = camCommand[2]
                     conn.send("[TIMELAPSE] STARTING".encode(FORMAT))
                     startTimelapse(duration, timeBetweenShots)
+                    #Need to add code to handle loss of connection.
                     conn.send("[TIMELAPSE] COMPLETE".encode(FORMAT))
-
+    
     conn.close()
         
 
